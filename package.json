@@ -1,0 +1,23 @@
+{
+  "name":"yacw",
+  "description": "Yet Another CouchDB Wrapper",
+  "keywords" : [ "couchdb", "couchdb-wrapper" ],
+  "url": "http://github.com/tdebarochez/yacw",
+  "version":"0.1.0",
+  "node":"0.8.x",
+  "main":"./lib/couch.js",
+  "author": "Thomas Debarochez <thomas.barochez+npm@gmail.com>",
+  "contributors": ["Ian Ward (https://github.com/ianshward)",
+                   "Young Hahn (https://github.com/yhahn)"],
+  "dependencies": {
+    "request": "2.x"
+  },
+  "devDependencies": {
+    "expresso": "0.8.0"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test expresso test/test.*.js"
+  },
+  "repository" : {"type" : "git",
+                  "url" : "http://github.com/tdebarochez/yacw.git"}
+}

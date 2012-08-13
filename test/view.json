@@ -3,7 +3,7 @@
     "language":"javascript",
     "views": {
         "empty-view": {
-            "map": "(function (doc) {\n emit([doc.expires, null], {_id: doc._id});\n })"
+            "map": "(function (doc) {\n if (false) emit([doc.expires, null], {_id: doc._id});\n })"
         }
     }
 }

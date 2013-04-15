@@ -31,6 +31,7 @@ Records management :
     Couch.prototype.del = function(doc, callback) {}
     Couch.prototype.get = function(id, callback) {}
     Couch.prototype.head = function(id, callback) {}
+    Couch.prototype.bulk = function({docs: [...]}, callback) {}
 
 Views management :
 

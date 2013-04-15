@@ -1,10 +1,9 @@
 var couch = require('../lib/couch')
   , assert = require('assert')
-  , path = require('path')
   , fs = require('fs')
   , global_opts = {"name": 'connect-couchdb-' + +new Date};
 
-if (path.existsSync('./test/credentials.json')) {
+if (fs.existsSync('./test/credentials.json')) {
   var credentials = require('./credentials.json');
   global_opts.username = credentials.username;
   global_opts.password = credentials.password;
@@ -105,6 +104,35 @@ module.exports = {
             assert.strictEqual(err, null);
             assert.strictEqual(docs.total_rows, 0);
             db.dbDel();
+          });
+        });
+      });
+    });
+  },
+  'bulk documents': function () {
+    var opts = global_opts;
+    opts.name = opts.name + '6';
+    var db = new couch(opts);
+    db.dbPut(function (err, res) {
+      db.put({_id: "aze", aze: 4}, function (err, res) {
+        assert.strictEqual(err, null);
+        var rev = res._rev;
+        db.put({_id: "wxc", wxc: 4}, function (err, res) {
+          assert.strictEqual(err, null);
+          db.bulk({docs:[{_id: "aze", _rev: rev, aze: 5},
+                         {_id: "wxc", _rev: res._rev, wxc: 5}]}, function (err, res) {
+            assert.strictEqual(err, null);
+            db.get("aze", function (err, res) {
+              assert.strictEqual(err, null);
+              assert.strictEqual(res._id, 'aze');
+              assert.strictEqual(res.aze, 5);
+              db.get("wxc", function (err, res) {
+                assert.strictEqual(err, null);
+                assert.strictEqual(res._id, 'wxc');
+                assert.strictEqual(res.wxc, 5);
+                db.dbDel();
+              });
+            });
           });
         });
       });

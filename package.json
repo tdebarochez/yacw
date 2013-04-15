@@ -10,7 +10,7 @@
   "contributors": ["Ian Ward (https://github.com/ianshward)",
                    "Young Hahn (https://github.com/yhahn)"],
   "dependencies": {
-    "request": "2.x"
+
   },
   "devDependencies": {
     "expresso": "0.8.0"

@@ -1,7 +1,7 @@
 var couch = require('../lib/couch')
   , assert = require('assert')
   , fs = require('fs')
-  , global_opts = {"name": 'connect-couchdb-' + +new Date};
+  , global_opts = {};
 
 if (fs.existsSync('./test/credentials.json')) {
   var credentials = require('./credentials.json');
@@ -9,26 +9,27 @@ if (fs.existsSync('./test/credentials.json')) {
   global_opts.password = credentials.password;
 }
 
-module.exports = {
-  'create & delete database': function () {
+describe('yacw', function () {
+  it('create & delete database', function (done) {
     var opts = global_opts;
-    opts.name = opts.name + '1';
+    opts.name = 'yacw-create';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       assert.strictEqual(err, null);
       db.dbDel(function (err, res) {
         assert.strictEqual(err, null);
+        done();
       });
     });
-  },
-  'db name': function () {
+  });
+  it('db name', function () {
     assert.throws(function () {
       new couch();
     });
-  },
-  'database _revs_limit option': function () {
+  });
+  it('database _revs_limit option', function (done) {
     var opts = global_opts;
-    opts.name = opts.name + '2';
+    opts.name = 'yacw-option';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       db.putOpt('_revs_limit', '1', function(err, res) {
@@ -36,14 +37,14 @@ module.exports = {
         db.getOpt('_revs_limit', function (err, res) {
           assert.strictEqual(err, null);
           assert.strictEqual(res, 1);
-          db.dbDel();
+          done();
         });
       });
     });
-  },
-  'create & remove document': function () {
+  });
+  it('create & remove document', function (done) {
     var opts = global_opts;
-    opts.name = opts.name + '3';
+    opts.name = 'yacw-create-doc';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       db.put({_id: "qsd", aze: 3}, function (err, res) {
@@ -53,14 +54,14 @@ module.exports = {
         assert.notEqual(res._rev, undefined);
         db.del({_id: res.id, _rev: res._rev}, function (err, res) {
           assert.strictEqual(err, null);
-          db.dbDel();
+          done();
         });
       });
     });
-  },
-  'get & update document': function () {
+  });
+  it('get & update document', function (done) {
     var opts = global_opts;
-    opts.name = opts.name + '4';
+    opts.name = 'yacw-update-doc';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       db.put({_id: "wxc", aze: 4}, function (err, res) {
@@ -82,7 +83,7 @@ module.exports = {
                 assert.strictEqual(res._rev, res_head._rev);
                 db.del({_id: res._id, _rev: res._rev}, function (err, res) {
                   assert.strictEqual(err, null);
-                  db.dbDel();
+                  done();
                 });
               });
             });
@@ -90,10 +91,10 @@ module.exports = {
         });
       });
     });
-  },
-  'create document with post & views': function () {
+  });
+  it('create document with post & views', function (done) {
     var opts = global_opts;
-    opts.name = opts.name + '5';
+    opts.name = 'yacw-create-view';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       db.putDesignDocs([__dirname + '/view.json'], function (err) {
@@ -103,15 +104,15 @@ module.exports = {
           db.view('_design/test/_view/empty-view', {}, function (err, docs) {
             assert.strictEqual(err, null);
             assert.strictEqual(docs.total_rows, 0);
-            db.dbDel();
+            done();
           });
         });
       });
     });
-  },
-  'bulk documents': function () {
+  });
+  it('bulk documents', function (done) {
     var opts = global_opts;
-    opts.name = opts.name + '6';
+    opts.name = 'yacw-bulk-doc';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       db.put({_id: "aze", aze: 4}, function (err, res) {
@@ -130,12 +131,12 @@ module.exports = {
                 assert.strictEqual(err, null);
                 assert.strictEqual(res._id, 'wxc');
                 assert.strictEqual(res.wxc, 5);
-                db.dbDel();
+                done();
               });
             });
           });
         });
       });
     });
-  }
-};
+  });
+});

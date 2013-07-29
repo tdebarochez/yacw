@@ -3,7 +3,7 @@
   "description": "Yet Another CouchDB Wrapper",
   "keywords" : [ "couchdb", "couchdb-wrapper", "couchdb-client" ],
   "url": "http://github.com/tdebarochez/yacw",
-  "version":"0.2.1",
+  "version":"0.2.2",
   "node":">=0.8",
   "main":"./lib/couch.js",
   "author": "Thomas Debarochez <thomas.barochez+npm@gmail.com>",

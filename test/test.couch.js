@@ -7,12 +7,25 @@ if (fs.existsSync('./test/credentials.json')) {
   var credentials = require('./credentials.json');
   global_opts.username = credentials.username;
   global_opts.password = credentials.password;
+  global_opts.uri      = credentials.uri;
 }
 
 describe('yacw', function () {
   it('create & delete database', function (done) {
     var opts = global_opts;
     opts.name = 'yacw-create';
+    var db = new couch(opts);
+    db.dbPut(function (err, res) {
+      assert.strictEqual(err, null);
+      db.dbDel(function (err, res) {
+        assert.strictEqual(err, null);
+        done();
+      });
+    });
+  });
+  it('create & delete database with uri', function (done) {
+    var opts = global_opts;
+    opts.uri = (opts.uri || 'http://127.0.0.1:5984') + '/yacw-create-with-uri';
     var db = new couch(opts);
     db.dbPut(function (err, res) {
       assert.strictEqual(err, null);

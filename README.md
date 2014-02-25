@@ -12,12 +12,18 @@ Constructor :
 
 Default config (`name` is required) :
 
-    {name: '',
+    {name: '<your_database_name>',
      host: "127.0.0.1",
      port: 5984,
      username: '',
      password: '',
      ssl: false}
+
+Alternative config with `uri` of your CouchDb database :
+
+    {uri: 'http://127.0.0.1:5984/<your_database_name>'}
+
+When `uri` is defined all other properties are ignored and can be left out, including `name`.
 
 Database options :
 

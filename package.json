@@ -3,12 +3,13 @@
   "description": "Yet Another CouchDB Wrapper",
   "keywords" : [ "couchdb", "couchdb-wrapper", "couchdb-client" ],
   "url": "http://github.com/tdebarochez/yacw",
-  "version":"0.2.2",
+  "version":"0.2.3",
   "node":">=0.8",
   "main":"./index.js",
   "author": "Thomas Debarochez <thomas.barochez+npm@gmail.com>",
   "contributors": ["Ian Ward (https://github.com/ianshward)",
-                   "Young Hahn (https://github.com/yhahn)"],
+                   "Young Hahn (https://github.com/yhahn)",
+                   "Ivan Erceg (https://github.com/ierceg)"],
   "dependencies": {
     "request": "*"
   },

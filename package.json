@@ -5,7 +5,7 @@
   "url": "http://github.com/tdebarochez/yacw",
   "version":"0.2.2",
   "node":">=0.8",
-  "main":"./lib/couch.js",
+  "main":"./index.js",
   "author": "Thomas Debarochez <thomas.barochez+npm@gmail.com>",
   "contributors": ["Ian Ward (https://github.com/ianshward)",
                    "Young Hahn (https://github.com/yhahn)"],
@@ -13,10 +13,12 @@
     "request": "*"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "jscoverage": "*"
   },
   "scripts": {
-    "test": "node test/cleanup.js ; mocha"
+    "test": "node test/cleanup.js ; ./node_modules/.bin/mocha",
+    "coverage": "node test/cleanup.js ; ./node_modules/.bin/jscoverage lib lib-cov ; (CODE_COVERAGE=1 ./node_modules/.bin/mocha -R html-cov > coverage.html) || exit 0;"
   },
   "repository" : {"type" : "git",
                   "url" : "http://github.com/tdebarochez/yacw.git"}

@@ -1,4 +1,4 @@
-var couch = require('../lib/couch')
+var couch = require('../')
   , assert = require('assert')
   , fs = require('fs')
   , global_opts = {};
